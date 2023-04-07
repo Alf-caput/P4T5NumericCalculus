@@ -37,7 +37,7 @@ function [p, Er, s] = PoliMulti(x, y, m)
             % Tenemos m+1 términos independientes
             b = zeros(m+1, 1);
             for i = 1: m+1
-                b(i) = sum(y.*x.^(i-1));
+                b(i, 1) = sum(y.*x.^(i-1));
             end
             % Resolviendo el sistema A*x = b obtenemos los coeficientes del
             % polinomio que ajusta el conjunto de puntos
