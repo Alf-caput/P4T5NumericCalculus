@@ -32,25 +32,22 @@ function [p, Er, s] = PoliMulti(x, y, m)
             end
             % Por la forma en que hemos elegido el orden de los
             % coeficientes del polinomio resultante volteamos la matriz
-            A = flipud(fliplr(A));
+            A = rot90(A,2);
             % Calculamos ahora el vector columna de términos independientes
             % Tenemos m+1 términos independientes
             b = zeros(m+1, 1);
             for i = 1: m+1
                 b(i) = sum(y.*x.^(i-1));
             end
-            % Resolviendo el sistema A*x = b obtenemos los coeficientes del
+            % Resolviendo el sistema A*p = b obtenemos los coeficientes del
             % polinomio que ajusta el conjunto de puntos
-            p = A \ b;
-            p = p';
+            p = (A \ b)'; % Lo transponemos para que sea vector fila
             % Se calcula el error
             Er = 0;
             for i=1: m+1
                 Er = Er + (y(i) - polyval(p, x(i)))^2;
             end
-            % Se calcula la desviación típica como la raíz cuadrada de: 
-            % El error dividido por la diferencia entre número de puntos y 
-            % el número de coeficientes del polinomio de ajuste
+            % Se calcula la desviación típica
             s = sqrt(Er/(n-m+1));
         end
     end
