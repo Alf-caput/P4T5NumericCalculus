@@ -31,17 +31,18 @@ function [p, Er, s] = PoliMulti(x, y, m)
                 A = A + diag(zeros(1, i) + sum(x.^(2*m-i+1)), m-i+1);
             end
             % Por la forma en que hemos elegido el orden de los
-            % coeficientes del polinomio resultante reflejamos la matriz
-            A = flipud(A);
+            % coeficientes del polinomio resultante volteamos la matriz
+            A = flipud(fliplr(A));
             % Calculamos ahora el vector columna de términos independientes
             % Tenemos m+1 términos independientes
             b = zeros(m+1, 1);
             for i = 1: m+1
-                b(i, 1) = sum(y.*x.^(i-1));
+                b(i) = sum(y.*x.^(i-1));
             end
             % Resolviendo el sistema A*x = b obtenemos los coeficientes del
             % polinomio que ajusta el conjunto de puntos
             p = A \ b;
+            p = p';
             % Se calcula el error
             Er = 0;
             for i=1: m+1
