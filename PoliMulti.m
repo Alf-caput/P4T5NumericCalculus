@@ -15,7 +15,7 @@ function [p, Er, s] = PoliMulti(x, y, m)
     if n ~= numel(y)
         disp('Error: A cada valor de x se debe corresponder un valor de y')
     else
-        if n < m
+        if n <= m
             disp('Error: El grado del polinomio de ajuste puede ser como mucho igual al número de puntos - 1')
         else
             % Para calcular los coeficientes del polinomio de grado m
