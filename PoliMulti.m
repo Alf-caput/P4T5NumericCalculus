@@ -23,6 +23,8 @@ function [p, Er, s] = PoliMulti(x, y, m)
             % por mínimos cuadrados
             % La matriz del sistema tiene 2*m + 1 sumatorios repartidos en
             % la diagonal y subdiagonales secundarias
+            % (Trabajaremos con diagonales y subdiagonales principales para
+            % luego rotar y obtener las secundarias)
             % El sumatorio para la diagonal secundaria:
             A = diag(zeros(1, m+1) + sum(x.^m));
             % Los 2*m sumatorios restantes de las subdiagonales secundarias
@@ -31,8 +33,8 @@ function [p, Er, s] = PoliMulti(x, y, m)
                 A = A + diag(zeros(1, i) + sum(x.^(2*m-i+1)), m-i+1);
             end
             % Por la forma en que hemos elegido el orden de los
-            % coeficientes del polinomio resultante volteamos la matriz
-            A = rot90(A,2);
+            % coeficientes del polinomio resultante rotamos la matriz
+            A = rot90(A, 2);
             % Calculamos ahora el vector columna de términos independientes
             % Tenemos m+1 términos independientes
             b = zeros(m+1, 1);
