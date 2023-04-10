@@ -8,9 +8,12 @@ function [p, Er, s] = PoliMulti(x, y, m)
 %   p = vector fila de coeficientes del polinomio de ajuste ordenados de 
 %   mayor a menor potencia de x
 %   Er = error total
-%   s = desviación estándar
-% El error se calcula como la suma de diferencias al cuadrado entre los
-% valores de y reales y los obtenidos al evaluar el polinomio de ajuste.
+%   s = error estándar de la estimación
+% El error total se calcula como la suma de diferencias al cuadrado entre 
+% los valores de y reales y los obtenidos al evaluar el polinomio de ajuste.
+% El error estándar de la estimación se calcula como la raíz cuadrada de el
+% error total dividido por el número de puntos menos el grado del polinomio
+% menos uno.
     n = numel(x);
     if n ~= numel(y)
         disp('Error: A cada valor de x se debe corresponder un valor de y')
@@ -49,7 +52,7 @@ function [p, Er, s] = PoliMulti(x, y, m)
             for i=1: m+1
                 Er = Er + (y(i) - polyval(p, x(i)))^2;
             end
-            % Se calcula la desviación típica
+            % Se calcula el error estándar de la estimación
             s = sqrt(Er/(n-m-1));
         end
     end
