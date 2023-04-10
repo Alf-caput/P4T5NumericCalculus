@@ -50,7 +50,7 @@ function [p, Er, s] = PoliMulti(x, y, m)
                 Er = Er + (y(i) - polyval(p, x(i)))^2;
             end
             % Se calcula la desviación típica
-            s = sqrt(Er/(n-m+1));
+            s = sqrt(Er/(n-m-1));
         end
     end
 end
