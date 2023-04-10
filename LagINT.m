@@ -1,5 +1,7 @@
 function Yint = LagINT(x,y,Xint)
-% Función que devuelve la imagen de un punto 
+% Función que evalua en un punto el polinomio interpolador de Lagrange para
+% un conjunto de puntos.
+% El algoritmo utilizado es el polinomio interpolador de Lagrange.
 % Inputs:
 %   x, y = vectores fila coordenadas de los puntos dados (eje X y eje Y)
 %   Xint = coordenada x del punto a interpolar
