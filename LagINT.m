@@ -1,16 +1,15 @@
 function Yint = LagINT(x,y,Xint)
-% Función que interpola los puntos dados utilizando el polinomio de Lagrange
+% Función que devuelve la imagen de un punto 
 % Inputs:
-%   x = coordenada x de los puntos de datos
-%   y = coordenada y de los puntos de datos
+%   x, y = vectores fila coordenadas de los puntos dados (eje X y eje Y)
 %   Xint = coordenada x del punto a interpolar
 % Outputs:
 %   Yint = valor interpolado en el punto Xint
     % Inicialización de variables
     n = length(x); 
-    L = ones(n,1); 
+    L = ones(n, 1); 
     Yint = 0;
-    % Calcular los coeficientes de Lagrange
+    % Se calculan las funciones de Lagrange evaluadas en Xint
     for i = 1:n
         for j = 1:n
             if i~=j
@@ -18,8 +17,8 @@ function Yint = LagINT(x,y,Xint)
             end
         end
     end
-    
-    % Calcular el valor interpolado de y en Xint
+    % Realizando el sumatorio de yi*Li con Li evaluadas en Xint se obtiene 
+    % el valor interpolado de y en Xint
     for i = 1:n
         Yint = Yint + y(i)*L(i);
     end
