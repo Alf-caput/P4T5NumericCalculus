@@ -1,5 +1,6 @@
 function [p, Er, s] = PoliMulti(x, y, m)
-% Función que calcula el polinomio de ajuste para un conjunto de puntos.
+% Función que calcula los coeficientes del polinomio de ajuste para un 
+% conjunto de puntos.
 % El algoritmo utilizado es el Método de mínimos cuadrados.
 % Inputs:
 %   x, y = vectores fila coordenadas de los puntos dados (eje X y eje Y)
