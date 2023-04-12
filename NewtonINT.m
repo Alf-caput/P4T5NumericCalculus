@@ -3,8 +3,8 @@ function Yint = NewtonINT(x, y, Xint)
 % un conjunto de puntos.
 % El algoritmo utilizado es el polinomio interpolador de Newton.
 % Input:
-%   x = vector de coordenadas x de los puntos de datos
-%   y = vector de coordenadas y de los puntos de datos
+%   x = vector fila de coordenadas x de los puntos de datos
+%   y = vector fila de coordenadas y de los puntos de datos
 %   Xint = coordenada x del punto a interpolar
 % Output:
 %   Yint = valor interpolado en el punto Xint
