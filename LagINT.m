@@ -3,7 +3,8 @@ function Yint = LagINT(x,y,Xint)
 % un conjunto de puntos.
 % El algoritmo utilizado es el polinomio interpolador de Lagrange.
 % Inputs:
-%   x, y = vectores fila coordenadas de los puntos dados (eje X y eje Y)
+%   x = vector fila de coordenadas x de los puntos de datos
+%   y = vector fila de coordenadas y de los puntos de datos
 %   Xint = coordenada x del punto a interpolar
 % Outputs:
 %   Yint = valor interpolado en el punto Xint
