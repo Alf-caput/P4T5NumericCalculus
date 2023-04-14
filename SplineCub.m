@@ -22,14 +22,16 @@ function [Yint] = SplineCub(x,y,xint)
     M = zeros(n,n);
     % Calculo de la matriz tridiagonal M y del vector columna v de términos
     % independientes
+    disp(x)
     for i = 1:n-1
         h(i) = x(i+1) - x(i);
         b(i) = 1/h(i) * (y(i+1) - y(i));
     end
-    for i = 1:n-2
-        u(i+1) = 2*(h(i) + h(i+1));
-        v(i+1) = 6*(b(i+1) - b(i));
+    for j = 1:n-2
+        u(j+1) = 2*(h(j) + h(j+1));
+        v(j+1) = 6*(b(j+1) - b(j));
     end
+    disp(u)
     M(1:n+1:end) = u;   % Diagonal principal
     M(2:n+1:end) = h;   % Diagonal superior
     M(1,2) = 0;
@@ -41,8 +43,8 @@ function [Yint] = SplineCub(x,y,xint)
     
     % se obtiene el valor interpolado de y en Xint
     Yint = zeros(n,1);
-    for i=1:n
-        Yint(i) = a(i)/(6*h(i))*(xint(i+1) - x)^3 + a(i+1)/(6*h(i))*(xint - x(i))^3 + (y(i)/h(i) - (a(i)*h(i))/6)*(x(i+1) - xint) + (y(i+1)/h(i) - (a(i+1)*h(i))/6)*(xint - x(i));
+    for i=1:n-2
+        Yint(i) = a(i)/(6*h(i))*(x(i+1)-xint)^3 + a(i+1)/(6*h(i))*(xint - x(i))^3 + (y(i)/h(i)-(a(i)*h(i))/6)*(x(i+1) - xint) + (y(i+1)/h(i) - (a(i+1)*h(i))/6)*(xint - x(i));
     end
 
 end
