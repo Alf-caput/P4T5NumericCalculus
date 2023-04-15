@@ -28,8 +28,8 @@ function [Yint] = SplineCub(x,y,xint)
     M(1, 2) = 0;
     M(n, n-1) = 0;
     % Resolución del sistema
-%     a = Tridiagonal(M, v);
-    a = M \ v;
+    a = Tridiagonal(M, v);
+
     % Se obtiene el valor interpolado de y en Xint
     for i = 1:n-1
         if xint >= x(i) && xint <= x(i+1)
