@@ -30,10 +30,8 @@ function [Yint] = SplineCub(x,y,xint)
     % Resolución del sistema
     a = Tridiagonal(M, v);
     % Se obtiene el valor interpolado de y en Xint
-    v = x-xint;
-    [~, i] = min(abs(v));
+    % FALTA OBTENER i
     Yint = a(i)/(6*h(i))*(x(i+1)-xint)^3 + a(i+1)/(6*h(i))*(xint - x(i))^3 + (y(i)/h(i)-(a(i)*h(i))/6)*(x(i+1) - xint) + (y(i+1)/h(i) - (a(i+1)*h(i))/6)*(xint - x(i));
-
 end
             
     
