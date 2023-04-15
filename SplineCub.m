@@ -2,16 +2,16 @@ function [Yint] = SplineCub(x,y,xint)
 % Función para interpolar puntos con splines cúbicas, mediante polinomios
 % de Lagrange.
 % INPUTS:
-%   x    = vector columna que contiene las coordenadas x de los puntos de datos
-%   y    = vector columna que contiene las coordenadas y de los puntos dados
+%   x    = vector fila que contiene las coordenadas x de los puntos de datos
+%   y    = vector fila que contiene las coordenadas y de los puntos dados
 %   xint = coordenada x del punto interpolado
 % OUTPUT:
 %   Yint = valor y del punto interpolado
     % Cálculo de coeficientes
     n = length(x);
     % Inicialización de variables
-    b = zeros(n-1, 1);
-    h = zeros(n-1, 1);
+    b = zeros(1, n-1);
+    h = zeros(1, n-1);
     % Calculo de los vectores h y b
     for i = 1:n-1
         h(i) = x(i+1) - x(i);
@@ -30,8 +30,16 @@ function [Yint] = SplineCub(x,y,xint)
     % Resolución del sistema
     a = Tridiagonal(M, v);
     % Se obtiene el valor interpolado de y en Xint
-    % FALTA OBTENER i
-    Yint = a(i)/(6*h(i))*(x(i+1)-xint)^3 + a(i+1)/(6*h(i))*(xint - x(i))^3 + (y(i)/h(i)-(a(i)*h(i))/6)*(x(i+1) - xint) + (y(i+1)/h(i) - (a(i+1)*h(i))/6)*(xint - x(i));
+    for i = 1:n-1
+        if xint >= x(i) && xint <= x(i+1)
+            break
+        end
+    end
+    Yint = ...
+        a(i)/6*h(i)*(x(i+1)-xint)^3 + ...
+        a(i+1)/6*h(i)*(xint - x(i))^3 + ...
+        (y(i)/h(i)-a(i)*h(i)/6)*(x(i+1) - xint) + ...
+        (y(i+1)/h(i) - a(i+1)*h(i)/6)*(xint - x(i));
 end
             
     
