@@ -1,6 +1,8 @@
 function [Yint] = SplineCub(x,y,xint)
 % Función para interpolar puntos con splines cúbicas, mediante polinomios
-% de Lagrange.
+% de Lagrange. La función llama a la función Tridiagonal para 
+% resolver el sistema con el que se obtienen los coeficientes de los polinomios 
+% mediante el algoritmo de Thomas.
 % INPUTS:
 %   x    = vector fila que contiene las coordenadas x de los puntos de datos
 %   y    = vector fila que contiene las coordenadas y de los puntos dados
@@ -12,6 +14,7 @@ function [Yint] = SplineCub(x,y,xint)
     % Inicialización de variables
     b = zeros(1, n-1);
     h = zeros(1, n-1);
+    M = zeros(n,n);
     % Calculo de los vectores h y b
     for i = 1:n-1
         h(i) = x(i+1) - x(i);
@@ -27,9 +30,9 @@ function [Yint] = SplineCub(x,y,xint)
     M = diag(u) + diag(h, 1) + diag(h, -1); 
     M(1, 2) = 0;
     M(n, n-1) = 0;
+
     % Resolución del sistema
     a = Tridiagonal(M, v);
-
     % Se obtiene el valor interpolado de y en Xint
     for i = 1:n-1
         if xint >= x(i) && xint <= x(i+1)
@@ -42,5 +45,3 @@ function [Yint] = SplineCub(x,y,xint)
         (y(i)/h(i)-a(i)*h(i)/6)*(x(i+1) - xint) + ...
         (y(i+1)/h(i) - a(i+1)*h(i)/6)*(xint - x(i));
 end
-            
-    
