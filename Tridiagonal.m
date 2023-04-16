@@ -5,7 +5,6 @@ function x = Tridiagonal(A,B)
 % A = matriz de coeficientes del sistema de ecuaciones que debe de ser
 % cuadrada y tridiagonal.
 % B = vector columna de términos independientes 
-
 % OUTPUTS:
 % x = vector columna solución del sistema de ecuaciones
     % Primero verificamos que la matriz sea cuadrada y tridiagonal:
@@ -14,14 +13,9 @@ function x = Tridiagonal(A,B)
         disp('ERROR.La matriz no es cuadrada.');
         return
     end
-
-    for i = 1:F
-        for j = 1:F
-            if abs(i-j) > 1 && A(i,j) ~= 0
-                disp('ERROR.La matriz no es tridiagonal')
-                return 
-            end
-        end
+    if ~isbanded(A, 1, 1)
+        disp('ERROR.La matriz no es tridiagonal')
+        return 
     end
 
     % Vector que contiene la diagonal de A
@@ -55,6 +49,5 @@ function x = Tridiagonal(A,B)
     for i=1:F-1
         x(F-i) = Bpp(F-i) - ap(F-i)*x(F-i+1);
     end
-
 
 end

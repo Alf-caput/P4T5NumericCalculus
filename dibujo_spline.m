@@ -1,14 +1,16 @@
-n_puntos = 200;
-xx = linspace(min(T), max(T), n_puntos);
-yy = zeros(1, n_puntos);
-for i = 1: n_puntos
+xx = linspace(min(T), max(T));
+n = length(xx);
+yy = zeros(1, n);
+for i = 1: n
     yy(i) = SplineCub(T, h, xx(i));
 end
-p1 = plot(xx, yy);
+p1 = plot(xx, yy, 'b-');
 hold on
 p2 = plot(T, h, '.', MarkerSize=10);
-leyenda = legend("Interpolación","Puntos iniciales","Location","northwest");
+% Documentación y ajustes del gráfico
+title("Spline con polinomios de Lagrange");
 xlabel('$\mathit{T}$ $\mathit{x}$ $10^{3}$ $\mathit{(K)}$','Interpreter','latex','FontSize',8);
 ylabel('$\mathit{h}$ (MJ/kg)','Interpreter','latex','FontSize',8);
-title("Spline con polinomios de Lagrange");
+leyenda = legend("Interpolación","Puntos iniciales","Location","northwest");
+grid
 hold on
