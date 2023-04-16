@@ -4,9 +4,9 @@ yy = zeros(1, n);
 for i = 1: n
     yy(i) = SplineCub(T, h, xx(i));
 end
-p1 = plot(xx, yy, 'b-');
+plot(xx, yy, 'b-');
 hold on
-p2 = plot(T, h, 'r.', MarkerSize=10);
+plot(T, h, 'r.', MarkerSize=10);
 % Documentación y ajustes del gráfico
 title("Spline con polinomios de Lagrange");
 xlabel('$\mathit{T}$ $\mathit{x}$ $10^{3}$ $\mathit{(K)}$','Interpreter','latex','FontSize',8);
