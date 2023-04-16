@@ -1,17 +1,12 @@
 function yint = Neville (x,y,xint)
-
-% El método de interpolación de Neville encuentra el valor de una función en un punto intermedio usando valores conocidos de la función en puntos cercanos. 
-% Se construye una tabla de valores interpolados mediante la fórmula de interpolación de Lagrange, 
-% y se utilizan estas aproximaciones para construir nuevas aproximaciones a lo largo de la diagonal 
-% de la tabla hasta llegar al valor interpolado final. 
-
+% Función que obtiene el valor interpolado de un punto.
+% El método utilizado es el algoritmo de interpolación de Neville.
 % INPUT:
-% x = vector columna de los datos del eje X
-% y = vector columna de los datos del eje Y
-% xint = valor que se interpolará
-
+%   x = vector columna de los datos del eje X
+%   y = vector columna de los datos del eje Y
+%   xint = valor que se interpolará
 % OUTPUT:
-% yint = valor de interpolación
+%   yint = valor de interpolación
 
     % Tamaño de la matriz posterior donde se guardarán los valores de cada polinomio de grado k
     n = length(x); 
