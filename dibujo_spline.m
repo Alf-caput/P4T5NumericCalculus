@@ -6,8 +6,8 @@ for i = 1: n_puntos
 end
 p1 = plot(xx, yy);
 hold on
-p2 = plot(T, h, '.', LineWidth=100);
-legend([p1, p2], "Interpolación","Puntos iniciales","Location","northwest");
+p2 = plot(T, h, '.', MarkerSize=10);
+leyenda = legend("Interpolación","Puntos iniciales","Location","northwest");
 xlabel('$\mathit{T}$ $\mathit{x}$ $10^{3}$ $\mathit{(K)}$','Interpreter','latex','FontSize',8);
 ylabel('$\mathit{h}$ (MJ/kg)','Interpreter','latex','FontSize',8);
 title("Spline con polinomios de Lagrange");
