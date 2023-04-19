@@ -51,7 +51,7 @@ function [p, Er, s] = PoliMulti(x, y, m)
             p = (A \ b)'; % Lo transponemos para que sea vector fila
             % Se calcula el error
             Er = 0;
-            for i=1: m+1
+            for i=1: n
                 Er = Er + (y(i) - polyval(p, x(i)))^2;
             end
             % Se calcula el error estándar de la estimación
