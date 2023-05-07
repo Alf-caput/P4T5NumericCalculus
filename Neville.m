@@ -1,28 +1,20 @@
-function yint = Neville (x,y,xint)
-% Función que obtiene el valor interpolado de un punto.
-% El método utilizado es el algoritmo de interpolación de Neville.
-% INPUT:
-%   x = vector columna de los datos del eje X
-%   y = vector columna de los datos del eje Y
-%   xint = valor que se interpolará
-% OUTPUT:
-%   yint = valor de interpolación
-
-    % Tamaño de la matriz posterior donde se guardarán los valores de cada polinomio de grado k
-    n = length(x); 
-    % Matriz donde se almacenarán los valores obtenidos
-    P = zeros(n); 
-    % Se añade a la matriz lo valores del vector 'y' para empezar a sacar el resto de valores
-    P(:,1)=y; 
-    
-    % Se empieza en 2 ya que k=1 son las imágenes de f(x)
-    for k = 2:n
-        % De esta forma obtendremos los valores de manera escalonada 
-        for i = 1:n-k+1
-            % Se calcula el valor interpolado de xint para cada polinomio de grado k
-            P(i,k) = ((xint - x(i+k-1))*P(i,k-1) + (x(i) - xint)*P(i+1,k-1))/(x(i) - x(i+k-1));
-        end
-    end
-    % Valor de interpolación
-    yint=P(1,n);
+function yint = Neville(x, y,xint)
+% Calcula el punto de interpolación mediante el método de Neville. 
+% Variables de entrada:
+% x, y vectores con las coordenadas de los puntos de datos
+% xint : punto donde se quiere interpolar
+% yint :  valor interpolado
+% Este algoritmo trabaja con la matriz unidimensional yn, que inicialmente
+% contiene los valores de y de los datos (la segunda columna de la tabla). 
+% Cada paso por el bucle for calcula los términos de la siguiente columna 
+% de la tabla, que sobrescriben los elementos anteriores de yn. 
+% Al final del procedimiento, yn contiene los términos diagonales de la tabla. 
+% El valor interpolado (evaluado en xint) que pasa por todos los puntos 
+% de datos es yint, el primer elemento de yn.
+n = length(x);
+yn = y;
+for k = 1:n-1
+    yn(1:n-k) = ((xint - x(k+1:n)).*yn(1:n-k)+ (x(1:n-k) - xint).*yn(2:n-k+1))./(x(1:n-k) - x(k+1:n));
+end
+yint = yn(1);
 end
