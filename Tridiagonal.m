@@ -1,53 +1,53 @@
-function x = Tridiagonal(A,B)
-% Función que busca la solución de un sistema de ecuaciones por el método
-% de Thomas.
-% INPUTS:
-% A = matriz de coeficientes del sistema de ecuaciones que debe de ser
-% cuadrada y tridiagonal.
-% B = vector columna de términos independientes 
-% OUTPUTS:
-% x = vector columna solución del sistema de ecuaciones
-    % Primero verificamos que la matriz sea cuadrada y tridiagonal:
-    [Z, F] = size(A);
-    if Z~=F 
-        disp('ERROR.La matriz no es cuadrada.');
-        return
-    end
-    if ~isbanded(A, 1, 1)
-        disp('ERROR.La matriz no es tridiagonal')
-        return 
-    end
+function x = Tridiagonal(A,b)
+% Función que dada una matriz tridiagonal A y un vector de términos
+% independientes b realiza el ALgoritmo de Thomas para resolver el sistema.
+%
+% Variables de entrada
+%   A = matriz tridiagonal
+%   b = vector columna
+%
+% Variables de salida
+%   x = vector con las soluciones del sistema
 
-    % Vector que contiene la diagonal de A
-    d = diag(A);
-    % Diagonal superior
-    a = diag(A,1);
-    % Diagonal inferior con el primer elemento 0 y el último A(F,F)
-    b = zeros(F,1);
-    b(2:F) = diag(A,-1);
-    d(F) = A(F,F);
+% Cuerpo de la función:
 
-    % A prima 
-    ap = zeros(F-1,1);
-    ap(1) = a(1)/d(1);
-    % B prima
-    Bp = zeros(F,1);
-    Bp(1) = B(1)/d(1);
-    % B prima prima
-    Bpp = zeros(F,1);
+% INICIALIZAMOS DATOS:
+[F,~] = size(A);  % Calculamos la dimensión de la matriz
+B = b;            % Guardamos en B los terminos indepepndientes
 
-    for i=2:F-1
-        ap(i) = a(i) / (d(i) - b(i)*ap(i-1));
-        Bpp(i) = (B(i)-b(i)*Bp(i-1)) / (d(i)-b(i)*ap(i-1));
+% COMPROBAMOS: isbanded() 
+for i = 2:F
+    d1 = diag(A,i);
+    d2 = diag(A,-i);
+    if norm(d1) + norm(d2) ~= 0 
+        error(' A no es tridiagonal');
     end
-    Bpp(F) = (B(F)-b(F)*Bp(F-1)) / (d(F) - b(F)*ap(F-1));
-    
-    x = zeros(F,1);
-    x(F) = Bpp(F);
+end
 
-    % Hacemos sustitucion hacia atras
-    for i=1:F-1
-        x(F-i) = Bpp(F-i) - ap(F-i)*x(F-i+1);
-    end
+% PASO 1:
+d = diag(A);      % Guardamos la primera columna para tener el primer elemento guardado.
+a = diag(A,1);
+b = [0; diag(A,-1)];   % Vector que tendra primer elemento Nulo porque la dimension real es F-1.
+
+% PASO 2:
+a(1) = a(1) / d(1);    
+B(1) = B(1) / d(1); 
+
+% PASO 3:
+for i = 2:F-1 
+    a(i) = a(i) / (d(i) - b(i) * a(i-1));
+    B(i) = (B(i) - b(i) * B(i-1)) / (d(i) - b(i) * a(i-1)); 
+end
+
+% PASO 4:
+B(F) = (B(F) - b(F) * B(F-1))/(d(F) - b(F) * a(F-1));
+
+% PASO 5:
+x = zeros(F,1);
+
+x(F) = B(F);
+for i = F-1:-1:1
+    x(i) = B(i) - a(i)*x(i+1);
+end
 
 end
